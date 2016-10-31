@@ -4,8 +4,13 @@
      $routeProvider
        .when('/', {
          templateUrl: '../views/pirates.html',
-         controller: function ($scope) {
-           $scope.msg = 'hello world'
+         controller: function ($scope,$log,$http) {
+           $scope.view = {}
+           $http.get('/api/v1').then(function (allPirates) {
+             $log.info('all Pirates',allPirates)
+             $scope.view.pirates = allPirates.data
+           })
+
          }
        })
        .when('/login', {
